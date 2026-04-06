@@ -1,0 +1,29 @@
+ 
+<!DOCTYPE html>
+<html>
+<head>
+<title>Speech Recognition</title>
+</head>
+<body>
+
+<button id="start">Start</button>
+<p id="output"></p>
+
+<script>
+const output = document.getElementById("output");
+
+let recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+recognition.continuous = false;   // 🔥 FIX
+recognition.lang = "hi";
+
+document.getElementById("start").onclick = () => recognition.start();
+
+recognition.onresult = function(event) {
+    const transcript = event.results[0][0].transcript;
+    output.textContent = transcript;
+    recognition.stop();
+};
+</script>
+
+</body>
+</html>
